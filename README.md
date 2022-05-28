@@ -106,6 +106,18 @@ You can make the `'windu-bring-` commands available globally through convenient 
 | -------- | -------- | ------ |
 | `i` | `'windu-echo-size` | display window's current size in the minibuffer |
 
+## Auto-saving layouts
+
+Windu also overrides the default `C-x 0` (`delete-window`) and `C-x 1` (`delete-other-windows`) bindings to save the current layout of windows (size, position, and buffer) before deleting. This allows restoring windows to their previous layout to, for example, toggle a focused view of one buffer. The layouts can be restored using the delete window commands with Shift, i.e. `C-x )` to restore layout to what it was before `delete-window` and `C-x !` to restore to before `delete-other-windows`. Here are the keybindings affected:
+
+| key     | old function           | new function                                  | effect                                                              |
+|---------|------------------------|-----------------------------------------------|---------------------------------------------------------------------|
+| `C-x 0` | `delete-window`        | `windu-auto-save-set-window-configuration-0`  | save window layout before deleting the current window               |
+| `C-x 1` | `delete-other-windows` | `windu-auto-save-set-window-configuration-1`  | save window layout before deleting other windows                    |
+| `C-x )` |                        | `windu-auto-save-load-window-configuration-0` | restore window layout the one saved in `configuration-0`, if exists |
+| `C-x !` |                        | `windu-auto-save-load-window-configuration-1` | restore window layout the one saved in `configuration-1`, if exists |
+
+
 ## Installation
 
 Place `windu.el` in your emacs load path (often somewhere under `~/.emacs.d/`) and then enable it in your `.emacs` config:
